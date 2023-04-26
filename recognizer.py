@@ -23,7 +23,7 @@ parser.add_argument("-m",action="store",default="hog",choices=["hog","cnn"],help
 parser.add_argument("-f",action="store",help="Path to an image with an unknown face")
 args = parser.parse_args()
 
-
+# create directories if they don't already exist
 Path("training").mkdir(exist_ok=True)
 Path("output").mkdir(exist_ok=True)
 Path("validation").mkdir(exist_ok=True)
@@ -50,6 +50,11 @@ def encode_known_faces(model: str="hog",encodings_location: Path = DEFAULT_ENCOD
         
 
 def recognize_faces(image_location:str,model:str="hog",encodings_location:Path=DEFAULT_ENCODINGS_PATH,) -> None:
+    """
+    Given an unknown image, get the locations and encodings
+    of any faces and compares them against the known encodings
+    to find potential matches
+    """
 
     with encodings_location.open(mode="rb") as f:
         loaded_encodings = pickle.load(f)
@@ -78,6 +83,12 @@ def recognize_faces(image_location:str,model:str="hog",encodings_location:Path=D
 
 
 def _recognize_face(unknown_encoding,loaded_encodings):
+    """
+    Given an unknown encoding and all known encodings, find the
+    known encoding with the most matches.
+
+    """
+  
     boolean_matches=face_recognition.compare_faces(loaded_encodings["encodings"],unknown_encoding)
 
     votes=Counter(
@@ -90,8 +101,13 @@ def _recognize_face(unknown_encoding,loaded_encodings):
 
 
 def _display_face(draw,bounding_box,name):
+      """ Draws bounding boxes around faces, a caption area, and
+      text captions
+      """
+        
+
     top,right,bottom,left=bounding_box
-    
+       
     draw.rectangle(((left,top),(right,bottom)),outline=BOUNDING_BOX_COLOR)
     text_left,text_top,text_right,text_bottom=draw.textbbox(
         (left,bottom),name)
@@ -109,6 +125,11 @@ def _display_face(draw,bounding_box,name):
         fill="white", )
 
 def validate(model:str="hog"):
+    """
+    Runs recognize_faces on a set of images with known faces to
+    validate known encodings.
+    """
+    
     for filepath in Path("validation").rglob("*"):
         if filepath.is_file():
             recognize_faces(image_location=str(filepath.absolute()),model=model)
