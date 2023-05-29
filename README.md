@@ -34,7 +34,7 @@
    provides usage instructions.
    
  ```bash 
- python recognize.py --train <path to images>
+ python recognizer.py --train <path to images>
  ``` 
  which should be  a directory of images to train the program for specific faces.
  ```bash
