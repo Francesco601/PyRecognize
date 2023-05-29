@@ -25,11 +25,11 @@
  ```   
 3) clone this repository with the requirements.txt file and install requirements:
 ```bash
-   python -m pip install -r requirements,txt
+   python -m pip install -r requirements.txt
  ```  
 5) Use on Linux and Mac: 
 ```bash 
-    python recognize.py -h (or --help) 
+    python recognizer.py -h (or --help) 
    ``` 
    provides usage instructions.
    
@@ -38,11 +38,11 @@
  ``` 
  which should be  a directory of images to train the program for specific faces.
  ```bash
-    python recognize.py --validate 
+    python recognizer.py --validate 
  ```
-        to run tests 
+ to run tests 
   ```bash 
-   python recognize.py --test <path to image> 
+   python recognizer.py --test <path to image> 
    ```
    to test on an unknown image.
   
