@@ -15,19 +15,11 @@
 
 ## Instructions:
 ---
-1) Create a python virtual environment in Linux or Mac with the following command:
-  ```bash
-  python3 -m venv venv
- ``` 
-2) Activate the environment after making sure you are in the directory you just created:
-```bash
-    source  venv/bin/activate
- ```   
-3) clone this repository with the requirements.txt file and install requirements:
+1) clone this repository with the requirements.txt file and install requirements:
 ```bash
    python -m pip install -r requirements.txt
  ```  
-5) Use on Linux and Mac: 
+2) Use on Linux and Mac: 
 ```bash 
     python recognizer.py -h (or --help) 
    ``` 
